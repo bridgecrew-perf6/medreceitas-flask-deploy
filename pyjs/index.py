@@ -1,13 +1,16 @@
-from org.transcrypt.stubs.browser import __pragma__
-from datetime import date
 import re
+from datetime import date
 
-__pragma__ ('skip')
-document = window = jq = Math = Date = console = 0 # Prevent complaints by optional static checker
-__pragma__ ('noskip')
+from org.transcrypt.stubs.browser import __pragma__
 
-__pragma__ ('alias', 'jq', '$')
+__pragma__('skip')
+# Prevent complaints by optional static checker
+document = window = jq = Math = Date = console = 0
+__pragma__('noskip')
 
+__pragma__('alias', 'jq', '$')
+
+btn_nova_receita = document.getElementById('btnNovaReceita')
 btn_imprimir = document.getElementById('btnImprimir')
 btn_adicionar = document.getElementById('btnAdicionar')
 btn_remover = document.getElementById('btnRemover')
@@ -18,13 +21,15 @@ txt_nome_med = document.getElementById('txtNomeMed')
 txt_quantidade = document.getElementById('txtQuantidade')
 txt_posologia = document.getElementById('txtPosologia')
 lista_meds_receita = document.getElementById('lista-meds-receita')
-lbl_nome_paciente_receita = document.getElementById('lbl-nome-paciente-receita')
+lbl_nome_paciente_receita = document.getElementById(
+    'lbl-nome-paciente-receita')
 lbl_data_receita = document.getElementById('lbl-data-receita')
 txt_meds_list_filter_input = document.getElementById('meds-list-filter-input')
 
 lista_med_receita = []
 
 window.onload = lambda: jq('#txtData').val(date.today().strftime('%d/%m/%Y'))
+
 
 def print_receita():
     print_contents = document.getElementById('divReceitaHtml').innerHTML
@@ -33,6 +38,7 @@ def print_receita():
     window.print()
     document.body.innerHTML = original_contents
     window.location.reload()
+
 
 def postMed(event):
     event.preventDefault()
@@ -45,7 +51,7 @@ def postMed(event):
         jq('#txtQuantidade').val(data.qtde)
         jq('#txtComentarios').val(data.comentarios)
         txt_meds_list_filter_input.value = ''
-    
+
     jq.ajax(
         {
             'type': 'post',
@@ -60,6 +66,7 @@ def postMed(event):
 # def evaluate(expr):
 #     return __pragma__('js', '{}', 'console.log(eval(expr))')
 
+
 def eval_expr(txt, var_map) -> str:
     """
     retorna string com expressões calculadas
@@ -73,12 +80,13 @@ def eval_expr(txt, var_map) -> str:
             expr_replaced = str_expr
             for key, value in var_map.items():
                 expr_replaced = expr_replaced.replace(f'[{key}]', str(value))
-        
+
         expr_replaced = expr_replaced.replace('{{', '').replace('}}', '')
         # substitui no texto original o valor da expressão
         txt = txt.replace(str_expr, str(round(eval(expr_replaced))))
 
     return txt
+
 
 def get_vars(txt) -> dict:
     """
@@ -91,19 +99,21 @@ def get_vars(txt) -> dict:
         vars[expr.group(1)] = ''
     return vars
 
+
 def get_vars_values(txt) -> dict:
     var_map = {}
     for expr in re.finditer('\[(\w+)\]', txt):
         var_name = expr.group(1)
-        var_map[var_name] = window.prompt(f'Digite o valor da variável [{var_name}]:')
+        var_map[var_name] = window.prompt(
+            f'Digite o valor da variável [{var_name}]:')
     return var_map
 
 
-def remove_ultimo_med_receita():
-    lista_meds_receita.removeChild(lista_meds_receita.lastChild)
+# def remove_ultimo_med_receita():
+#     lista_meds_receita.removeChild(lista_meds_receita.lastChild)
 
-def remove_med_receita(med_name):
-    jq("#lista-meds-receita li").filter(lambda x: x.text() == med_name).remove()
+# def remove_med_receita(med_name):
+#     jq("#lista-meds-receita li").filter(lambda x: x.text() == med_name).remove()
 
 def add_med_receita():
     lbl_nome_paciente_receita.innerHTML = txt_nome_paciente.value
@@ -112,7 +122,7 @@ def add_med_receita():
     var_map = get_vars_values(txt_posologia.value)
     result_posologia = eval_expr(txt_posologia.value, var_map)
 
-    list_item  = f'<li class="nome-med">'
+    list_item = f'<li class="nome-med">'
     list_item += f'    <span class="nome-med" onclick="main.remove_item(parentNode)">{txt_nome_med.value}</span>'
     list_item += f'    <span class="quantidade">{txt_quantidade.value}</span>'
     list_item += f'    <p class="posologia">{result_posologia}</p>'
@@ -129,11 +139,11 @@ def add_med_receita():
     # }
     # lista_med_receita.append(med)
 
+
 def remove_item(item):
     lista_meds_receita.removeChild(item)
 
 
 btn_adicionar.addEventListener('click', add_med_receita)
 btn_imprimir.addEventListener('click', print_receita)
-btn_remover.addEventListener('click', lambda: remove_med_receita('Dipirona 500mg'))
-
+btn_nova_receita.addEventListener('click', lambda: window.location.reload())

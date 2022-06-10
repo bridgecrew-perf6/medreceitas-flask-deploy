@@ -1,0 +1,415 @@
+<!doctype html>
+<html>
+
+<head>
+   <meta charset="utf-8">
+   <title>MedReceitas</title>
+   <meta name="generator" content="WYSIWYG Web Builder 17 Trial Version - https://www.wysiwygwebbuilder.com">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link href="wwb\css/base/jquery-ui.min.css" rel="stylesheet">
+   <link href="wwb\css/MedReceitas.css" rel="stylesheet">
+   <link href="wwb\css/index.css" rel="stylesheet">
+   <script src="wwb\js/jquery-3.6.0.min.js"></script>
+   <script src="wwb\js/jquery-ui.min.js"></script>
+   <script src="wwb\js/listview.min.js"></script>
+   <script src="wwb\js/wb.filterable.min.js"></script>
+   <script>
+      $(document).ready(function () {
+         $("#meds-list").listview(
+            {
+               inset: false
+            });
+         $("#meds-list").filterable({ input: '#meds-list-filter-input' });
+      });
+   </script>
+   <link href="css/myindex.css" rel="stylesheet">
+   <script type="module">import * as main from '/js/__target__/index.js'; window.main = main;</script>
+</head>
+
+<body>
+   <div id="wb_LayoutGrid1">
+      <div id="LayoutGrid1">
+         <div class="row">
+            <div class="col-1">
+               <div id="wb_LayoutGrid2">
+                  <div id="LayoutGrid2">
+                     <div class="row">
+                        <div class="col-1">
+                           <div id="wb_Text3">
+                              <span
+                                 style="color:#000000;font-family:Arial;font-size:43px;"><strong>MedReceitas</strong></span>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div id="wb_LayoutGrid3">
+                  <div id="LayoutGrid3">
+                     <div class="row">
+                        <div class="col-1">
+                           <input type="button" id="btnNovaReceita" name="" value="Nova receita"
+                              style="display:inline-block;width:93px;height:28px;z-index:1;">
+                        </div>
+                        <div class="col-2">
+                           <input type="button" id="btnProtocolos" name="btnProtocolos" value="Protocolos"
+                              style="display:inline-block;width:93px;height:28px;z-index:2;">
+                        </div>
+                        <div class="col-3">
+                           <input type="button" id="btnImprimir" name="" value="Imprimir"
+                              style="display:inline-block;width:93px;height:28px;z-index:3;">
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div id="wb_LayoutGrid4">
+                  <div id="LayoutGrid4">
+                     <div class="row">
+                        <div class="col-1">
+                           <label for="txtNomePaciente" id="Label12"
+                              style="display:block;width:100%;line-height:16px;z-index:4;">Paciente:</label>
+                        </div>
+                        <div class="col-2">
+                           <input type="text" id="txtNomePaciente"
+                              style="display:block;width: 100%;height:26px;z-index:5;" name="Editbox1" value=""
+                              spellcheck="false">
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div id="wb_LayoutGrid5">
+                  <div id="LayoutGrid5">
+                     <div class="row">
+                        <div class="col-1">
+                           <label for="txtData" id="Label13"
+                              style="display:block;width:100%;line-height:16px;z-index:6;">Data:</label>
+                        </div>
+                        <div class="col-2">
+                           <input type="text" id="txtData" style="display:block;width: 100%;height:26px;z-index:7;"
+                              name="Editbox1" value="" spellcheck="false">
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div id="wb_div-meds-list">
+                  <form name="form_med" method="post" action="/?cmd=select" enctype="multipart/form-data"
+                     id="div-meds-list">
+                     <div class="row">
+                        <div class="col-1">
+                           <div id="wb_meds-list" style="display:inline-block;width:100%;z-index:8;">
+                              <form><input type="text" data-type="search" id="meds-list-filter-input"
+                                    placeholder="Selecione um medicamento..."></form>
+                              <ul id="meds-list" class="fixed-height" style="margin-top:0;margin-bottom:0;">
+                                 {% for med in lista_meds %}
+                                 <li><a href="#" onclick="main.postMed(event)"> {{ med }}</a></li>
+                                 {% endfor %}
+                              </ul>
+                           </div>
+                        </div>
+                     </div>
+                  </form>
+               </div>
+               <div id="wb_LayoutGrid11">
+                  <div id="LayoutGrid11">
+                     <div class="row">
+                        <div class="col-1">
+                           <label for="" id="Label7"
+                              style="display:block;width:100%;line-height:36px;z-index:20;">Medicamento</label>
+                           <div id="wb_LayoutGrid6">
+                              <div id="LayoutGrid6">
+                                 <div class="row">
+                                    <div class="col-1">
+                                       <label for="txtNomeMed" id="Label6"
+                                          style="display:block;width:100%;line-height:16px;z-index:9;">Nome:</label>
+                                    </div>
+                                    <div class="col-2">
+                                       <input type="text" id="txtNomeMed"
+                                          style="display:block;width: 100%;height:26px;z-index:10;" name="nome" value=""
+                                          spellcheck="false">
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div id="wb_LayoutGrid7">
+                              <div id="LayoutGrid7">
+                                 <div class="row">
+                                    <div class="col-1">
+                                       <label for="txtQuantidade" id="Label8"
+                                          style="display:block;width:100%;line-height:16px;z-index:11;">Quantidade:</label>
+                                    </div>
+                                    <div class="col-2">
+                                       <input type="text" id="txtQuantidade"
+                                          style="display:block;width: 100%;height:26px;z-index:12;" name="quantidade"
+                                          value="" spellcheck="false">
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div id="wb_LayoutGrid8">
+                              <div id="LayoutGrid8">
+                                 <div class="row">
+                                    <div class="col-1">
+                                       <label for="txtPosologia" id="Label9"
+                                          style="display:block;width:100%;line-height:16px;z-index:13;">Posologia:</label>
+                                    </div>
+                                    <div class="col-2">
+                                       <textarea name="posologia" id="txtPosologia"
+                                          style="display:block;width: 100%;;height:103px;z-index:14;" rows="5" cols="24"
+                                          spellcheck="false"></textarea>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div id="wb_LayoutGrid9">
+                              <div id="LayoutGrid9">
+                                 <div class="row">
+                                    <div class="col-1">
+                                       <label for="txtComentarios" id="Label10"
+                                          style="display:block;width:100%;line-height:16px;z-index:15;">Comentários:</label>
+                                    </div>
+                                    <div class="col-2">
+                                       <textarea name="comentarios" id="txtComentarios"
+                                          style="display:block;width: 100%;;height:103px;z-index:16;" rows="5" cols="24"
+                                          spellcheck="false"></textarea>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div id="wb_LayoutGrid10">
+                              <div id="LayoutGrid10">
+                                 <div class="row">
+                                    <div class="col-1">
+                                       <input type="button" id="btnAdicionar" name="" value="Adicionar"
+                                          style="display:block;width: 100%;;height:28px;z-index:17;">
+                                    </div>
+                                    <div class="col-2">
+                                       <input type="button" id="btnRemover" name="btnRemover" value="Remover"
+                                          style="display:block;width: 100%;;height:28px;z-index:18;">
+                                    </div>
+                                    <div class="col-3">
+                                       <input type="reset" id="btnLimpar" name="btnLimpar" value="Limpar"
+                                          style="display:block;width: 100%;;height:28px;z-index:19;">
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="col-2">
+               <div id="wb_divReceitaHtml" class="printable">
+                  <div id="divReceitaHtml">
+                     <div class="row">
+                        <div class="col-1">
+                           <div id="wb_LayoutGrid14">
+                              <div id="LayoutGrid14">
+                                 <div class="row">
+                                    <div class="col-1">
+                                       <div id="wb_Image1"
+                                          style="display:inline-block;width:136px;height:69px;z-index:32;">
+                                          <img src="wwb\img/logo HCV.jpg" id="Image1" alt="" width="136" height="69">
+                                       </div>
+                                    </div>
+                                    <div class="col-2">
+                                       <div id="wb_Text1">
+                                          <span style="color:#000000;font-family:Arial;font-size:21px;"><strong>HCV -
+                                                Receita Médica - Prontuário Eletrônico</strong></span>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <hr id="Line1" style="display:inline-block;width:720px;z-index:41;">
+                           <div id="wb_LayoutGrid16">
+                              <div id="LayoutGrid16">
+                                 <div class="row">
+                                    <div class="col-1">
+                                       <div id="wb_Text5">
+                                          <span
+                                             style="color:#000000;font-family:Arial;font-size:13px;"><strong>Nome:</strong></span>
+                                       </div>
+                                    </div>
+                                    <div class="col-2">
+                                       <span id="lbl-nome-paciente-receita"
+                                          style="color:#000000;font-family:Arial;font-size:13px;"></span>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div id="wb_LayoutGrid12">
+                              <div id="LayoutGrid12">
+                                 <div class="row">
+                                    <div class="col-1">
+                                       <div id="wb_Text6">
+                                          <span
+                                             style="color:#000000;font-family:Arial;font-size:13px;"><strong>Data:</strong></span>
+                                       </div>
+                                    </div>
+                                    <div class="col-2">
+                                       <span id="lbl-data-receita"
+                                          style="color:#000000;font-family:Arial;font-size:13px;"></span>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div id="Html1" style="display:inline-block;width:100%;height:700px;z-index:44">
+                              <ol id="lista-meds-receita"></ol>
+                           </div>
+                           <div id="wb_LayoutGrid23">
+                              <div id="LayoutGrid23">
+                                 <div class="row">
+                                    <div class="col-1">
+                                    </div>
+                                    <div class="col-2">
+                                       <hr id="Line5" style="display:inline-block;width:210px;z-index:38;">
+                                       <div id="wb_Text2">
+                                          <span style="color:#000000;font-family:Arial;font-size:13px;">IDENTIFICAÇÃO DO
+                                             EMITENTE<br><br>Av. Vicente Machado nº 1310. Batel.<br>Fone (41)
+                                             3016-6622<br>Curitiba - Paraná</span>
+                                       </div>
+                                    </div>
+                                    <div class="col-3">
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div id="wb_LayoutGrid13">
+                        <div id="LayoutGrid13">
+                           <div class="row">
+                              <div class="col-1">
+                                 <div id="wb_Text7">
+                                    <span style="color:#000000;font-family:Arial;font-size:13px;">IDENTIFICAÇÃO DO
+                                       COMPRADOR</span>
+                                 </div>
+                                 <hr id="Line2" style="display:inline-block;width:351px;z-index:54;">
+                                 <div id="wb_LayoutGrid15">
+                                    <div id="LayoutGrid15">
+                                       <div class="row">
+                                          <div class="col-1">
+                                             <div id="wb_Text9">
+                                                <span
+                                                   style="color:#000000;font-family:Arial;font-size:13px;">Nome:</span>
+                                             </div>
+                                          </div>
+                                          <div class="col-2">
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div id="wb_LayoutGrid17">
+                                    <div id="LayoutGrid17">
+                                       <div class="row">
+                                          <div class="col-1">
+                                             <div id="wb_Text10">
+                                                <span
+                                                   style="color:#000000;font-family:Arial;font-size:13px;">Iden.:</span>
+                                             </div>
+                                          </div>
+                                          <div class="col-2">
+                                             <div id="wb_Text12">
+                                                <span style="color:#000000;font-family:Arial;font-size:13px;">Órg.
+                                                   Emissor:</span>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div id="wb_LayoutGrid18">
+                                    <div id="LayoutGrid18">
+                                       <div class="row">
+                                          <div class="col-1">
+                                             <div id="wb_Text11">
+                                                <span
+                                                   style="color:#000000;font-family:Arial;font-size:13px;">End.:</span>
+                                             </div>
+                                          </div>
+                                          <div class="col-2">
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div id="wb_LayoutGrid19">
+                                    <div id="LayoutGrid19">
+                                       <div class="row">
+                                          <div class="col-1">
+                                             <div id="wb_Text13">
+                                                <span
+                                                   style="color:#000000;font-family:Arial;font-size:13px;">Cidade:</span>
+                                             </div>
+                                          </div>
+                                          <div class="col-2">
+                                             <div id="wb_Text14">
+                                                <span style="color:#000000;font-family:Arial;font-size:13px;">UF:</span>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div id="wb_LayoutGrid20">
+                                    <div id="LayoutGrid20">
+                                       <div class="row">
+                                          <div class="col-1">
+                                             <div id="wb_Text15">
+                                                <span
+                                                   style="color:#000000;font-family:Arial;font-size:13px;">Telefone:</span>
+                                             </div>
+                                          </div>
+                                          <div class="col-2">
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="col-2">
+                                 <div id="wb_Text16">
+                                    <span style="color:#000000;font-family:Arial;font-size:13px;">IDENTIFICAÇÃO DO
+                                       FORNECEDOR</span>
+                                 </div>
+                                 <hr id="Line3" style="display:inline-block;width:351px;z-index:63;">
+                                 <div id="wb_LayoutGrid21">
+                                    <div id="LayoutGrid21">
+                                       <div class="row">
+                                          <div class="col-1">
+                                             <div style="height: 60px;"></div>
+                                          </div>
+                                          <div class="col-2">
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div id="wb_LayoutGrid22">
+                                    <div id="LayoutGrid22">
+                                       <div class="row">
+                                          <div class="col-1">
+                                             <hr id="Line3" style="display:inline-block;width:150px;z-index:63;">
+                                             <div id="wb_Text17">
+                                                <span style="color:#000000;font-family:Arial;font-size:13px;">Assinatura
+                                                   do
+                                                   farmacêutico</span>
+                                             </div>
+                                          </div>
+                                          <div class="col-2">
+                                             <div id="wb_Text18">
+                                                <span style="color:#000000;font-family:Arial;font-size:13px;">Data:
+                                                   ____/____/____</span>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</body>
+
+</html>

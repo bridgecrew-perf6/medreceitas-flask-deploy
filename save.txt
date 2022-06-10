@@ -1,0 +1,15 @@
+
+                                 {% for med in lista_meds %}
+                                    <li><a href="#" onclick="main.postMed(event)"> {{ med }}</a></li>
+                                 {% endfor %}
+
+
++ add class "fixed-height" for meds-list
+
+                                       <ol>
+                                          {% for item in lista_meds_sel %}
+                                             <li class="nome-med">{{ item.nome }}</li>
+                                             <span class="quantidade">{{ item.quantidade }}</span>
+                                             <p class="posologia">{{ item.posologia }}</p>
+                                          {% endfor %}
+                                       </ol>
